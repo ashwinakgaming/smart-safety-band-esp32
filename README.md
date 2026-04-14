@@ -50,3 +50,19 @@ This project is an IoT-based smart wearable designed to enhance safety for elder
 * Mobile app integration (Firebase)
 * SMS alert system
 * Voice communication module
+## Pin Configuration
+
+| Component    | ESP32 Pin |
+| ------------ | --------- |
+| GPS RX       | GPIO16    |
+| GPS TX       | GPIO17    |
+| MPU6050 SDA  | GPIO21    |
+| MPU6050 SCL  | GPIO22    |
+| Touch Sensor | GPIO4     |
+
+## Code Explanation
+
+* GPS module reads real-time location using UART communication
+* MPU6050 detects sudden acceleration changes (fall detection)
+* Touch sensor acts as manual SOS trigger
+* ESP32 processes data and outputs alerts via Serial Monitor
