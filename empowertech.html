@@ -1,0 +1,1027 @@
+ 
+
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+    <meta charset="UTF-8"> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+    <title>SOS Emergency App</title> 
+
+    <style> 
+
+        body { 
+
+            font-family: Arial, sans-serif; 
+
+            background-color: #E0BBE4; 
+
+            color: black; 
+
+            margin: 0; 
+
+            padding: 20px; 
+
+        } 
+
+        .container { 
+
+            max-width: 600px; 
+
+            margin: auto; 
+
+            background: rgba(255, 255, 255, 0.9); 
+
+            padding: 20px; 
+
+            border-radius: 5px; 
+
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+
+        } 
+
+        h1, h2 { 
+
+            text-align: center; 
+
+        } 
+
+        form { 
+
+            display: flex; 
+
+            flex-direction: column; 
+
+        } 
+
+        label { 
+
+            margin-top: 10px; 
+
+        } 
+
+        button { 
+
+            margin-top: 20px; 
+
+            background-color: #E0BBE4; /* Same as the background */ 
+
+            color: black; 
+
+            border: none; 
+
+            padding: 10px; 
+
+            cursor: pointer; 
+
+        } 
+
+        button:hover { 
+
+            background-color: #D3D3D3; 
+
+        } 
+
+        .feature-input { 
+
+            margin-bottom: 20px; 
+
+        } 
+
+        /* Style specifically for the Record Fake Call button */ 
+
+        #recordCall { 
+
+            background-color: red; 
+
+            color: white; 
+
+        } 
+
+        #recordCall:hover { 
+
+            background-color: #FF3333; /* Slightly lighter red on hover */ 
+
+        } 
+
+        /* Dashboard Styles */ 
+
+        #dashboardPage { 
+
+            text-align: center; 
+
+        } 
+
+        #notificationBar, 
+
+        #locationInfo, 
+
+        #sosAlert, 
+
+        #braceletData { 
+
+            margin-bottom: 20px; 
+
+            padding: 10px; 
+
+            border: 1px solid #ccc; 
+
+            border-radius: 5px; 
+
+        } 
+
+        #notificationList { 
+
+            list-style-type: none; 
+
+            padding: 0; 
+
+        } 
+
+        #notificationList li { 
+
+            margin-bottom: 5px; 
+
+            padding: 5px; 
+
+            background-color: #f9f9f9; 
+
+            border-left: 3px solid #007bff; 
+
+        } 
+
+        #sendSos { 
+
+            background-color: #dc3545; /* Red color for SOS button */ 
+
+            color: white; 
+
+        } 
+
+        #sendSos:hover { 
+
+            background-color: #c82333; 
+
+        } 
+
+        /* Back Button Style */ 
+
+        .backButton { 
+
+            margin-bottom: 10px; 
+
+            background-color: #ccc; 
+
+            color: black; 
+
+            border: none; 
+
+            padding: 8px 12px; 
+
+            cursor: pointer; 
+
+            border-radius: 5px; 
+
+        } 
+
+        .backButton:hover { 
+
+            background-color: #bbb; 
+
+        } 
+
+        #topBar { 
+
+            display: flex; 
+
+            justify-content: flex-start; /* Align items to the start */ 
+
+            align-items: center; /* Center items vertically */ 
+
+            padding: 10px; 
+
+            margin-bottom: 20px; 
+
+            border: 1px solid #ccc; 
+
+            border-radius: 5px; 
+
+        } 
+
+        #homeIcon { 
+
+            cursor: pointer; 
+
+            width: 50px; 
+
+            height: 50px; 
+
+        } 
+
+    </style> 
+
+</head> 
+
+<body> 
+
+    <div class="container"> 
+
+        <h1>SOS Emergency App</h1> 
+
+        <div id="loginPage" style="position: relative;"> 
+
+            <h2>Login</h2> 
+
+            <form id="loginForm"> 
+
+                <label for="name">Name:</label> 
+
+                <input type="text" id="name" required> 
+
+                <label for="phone">Phone Number:</label> 
+
+                <input type="tel" id="phone" required> 
+
+                <label for="age">Age:</label> 
+
+                <input type="number" id="age" required> 
+
+                <button type="submit">Login</button> 
+
+            </form> 
+
+            <button class="backButton" onclick="showPage('featuresPage')">Back</button> 
+
+        </div> 
+
+ 
+
+        <div id="featuresPage" style="display: none; position: relative;"> 
+
+            <h2>Select Features</h2> 
+
+            <form id="featuresForm"> 
+
+                <label><input type="checkbox" id="voiceMsg"> Voice Message Alert</label><br> 
+
+                <label><input type="checkbox" id="heartRate"> Heart Rate Monitoring</label><br> 
+
+                <label><input type="checkbox" id="fallDetection"> Fall Detection</label><br> 
+
+                <label><input type="checkbox" id="gpsTracking"> GPS Tracking</label><br> 
+
+                <button type="submit">Next</button> 
+
+            </form> 
+
+            <button class="backButton" onclick="showPage('loginPage')">Back</button> 
+
+        </div> 
+
+ 
+
+        <div id="customizePage" style="display: none; position: relative;"> 
+
+            <h2>Customize Messages and Fake Calls</h2> 
+
+            <button id="recordCall">Record Fake Call</button> 
+
+             
+
+            <div class="feature-input" id="voiceMsgInput" style="display: none;"> 
+
+                <label for="voiceMsgText">Voice Message Text:</label> 
+
+                <input type="text" id="voiceMsgText" value="This is an emergency! Please help!"> 
+
+            </div> 
+
+ 
+
+            <div class="feature-input" id="fallMsgInput" style="display: none;"> 
+
+                <label for="fallMsg">Fall Detection Message:</label> 
+
+                <input type="text" id="fallMsg" value="Fall Detected! Sending help."> 
+
+            </div> 
+
+ 
+
+            <div class="feature-input" id="gpsMsgInput" style="display: none;"> 
+
+                <label for="gpsMsg">GPS Alert Message:</label> 
+
+                <input type="text" id="gpsMsg" value="User left the safe zone!"> 
+
+            </div> 
+
+ 
+
+            <div class="feature-input" id="heartRateMsgInput" style="display: none;"> 
+
+                <label for="heartRateMsg">Heart Rate Alert Message:</label> 
+
+                <input type="text" id="heartRateMsg" value="Heart Rate Alert!"> 
+
+            </div> 
+
+ 
+
+            <button id="saveMessages">Save Messages</button> 
+
+            <button id="startEmergency">Start Emergency Services</button> 
+
+            <button class="backButton" onclick="showPage('featuresPage')">Back</button> 
+
+        </div> 
+
+ 
+
+        <div id="dashboardPage" style="display: none; position: relative;"> 
+
+            <h2>Dashboard</h2> 
+
+ 
+
+            <div id="topBar"> 
+
+                <img id="homeIcon" src="https://pplx-res.cloudinary.com/image/upload/v1740309763/user_uploads/wokigscTbVKJBcZ/home-image.jpg" alt="Home" style="cursor: pointer;"> 
+
+            </div> 
+
+ 
+
+            <div id="notificationBar"> 
+
+                <h3>Recent Notifications</h3> 
+
+                <ul id="notificationList"> 
+
+                    <!-- Notifications will be added here --> 
+
+                </ul> 
+
+            </div> 
+
+ 
+
+            <div id="locationInfo"> 
+
+                <h3>Current Location</h3> 
+
+                <p id="latitude">Latitude: N/A</p> 
+
+                <p id="longitude">Longitude: N/A</p> 
+
+                <button id="updateLocation">Update Location</button> 
+
+            </div> 
+
+ 
+
+            <div id="sosAlert"> 
+
+                <h3>SOS Alert</h3> 
+
+                <button id="sendSos">Send SOS</button> 
+
+            </div> 
+
+ 
+
+            <div id="braceletData"> 
+
+                <h3>Bracelet Data</h3> 
+
+                <p>Heart Rate: <span id="heartRateValue">N/A</span> bpm</p> 
+
+                <p>Fall Detected: <span id="fallDetectedValue">No</span></p> 
+
+            </div> 
+
+            <button class="backButton" onclick="showPage('profileInfoPage')">Back</button> 
+
+        </div> 
+
+ 
+
+        <div id="profileInfoPage" style="display: none; position: relative;"> 
+
+            <h2>Profile Information</h2> 
+
+             
+
+            <p>Name: <span id="profileName">N/A</span></p> 
+
+            <p>Phone: <span id="profilePhone">N/A</span></p> 
+
+            <p>Age: <span id="profileAge">N/A</span></p> 
+
+            <button class="backButton" onclick="showPage('dashboardPage')">Back to Dashboard</button> 
+
+        </div> 
+
+    </div> 
+
+ 
+
+    <script> 
+
+        let recordedCall = null; 
+
+        let notifications = []; 
+
+ 
+
+        // Function to show/hide pages 
+
+        function showPage(pageId) { 
+
+            document.getElementById('loginPage').style.display = 'none'; 
+
+            document.getElementById('featuresPage').style.display = 'none'; 
+
+            document.getElementById('customizePage').style.display = 'none'; 
+
+            document.getElementById('dashboardPage').style.display = 'none'; 
+
+            document.getElementById('profileInfoPage').style.display = 'none'; 
+
+            document.getElementById(pageId).style.display = 'block'; 
+
+        } 
+
+ 
+
+        // Login Form 
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) { 
+
+            event.preventDefault(); 
+
+            const name = document.getElementById('name').value; 
+
+            const phone = document.getElementById('phone').value; 
+
+            const age = document.getElementById('age').value; 
+
+            localStorage.setItem('userData', JSON.stringify({ name, phone, age })); 
+
+            showPage('featuresPage'); 
+
+        }); 
+
+ 
+
+        // Features Form 
+
+        document.getElementById('featuresForm').addEventListener('submit', function(event) { 
+
+            event.preventDefault(); 
+
+            const features = { 
+
+                voiceMsg: document.getElementById('voiceMsg').checked, 
+
+                heartRate: document.getElementById('heartRate').checked, 
+
+                fallDetection: document.getElementById('fallDetection').checked, 
+
+                gpsTracking: document.getElementById('gpsTracking').checked 
+
+            }; 
+
+            localStorage.setItem('selectedFeatures', JSON.stringify(features)); 
+
+            showPage('customizePage'); 
+
+        }); 
+
+ 
+
+        // Customize Page 
+
+        document.addEventListener('DOMContentLoaded', function() { 
+
+            // First, check if we can retrieve stored features 
+
+            const storedFeatures = localStorage.getItem('selectedFeatures'); 
+
+            if (storedFeatures) { 
+
+                const selectedFeatures = JSON.parse(storedFeatures); 
+
+ 
+
+                // Show customize inputs based on selected features 
+
+                if (document.getElementById('voiceMsgInput')) { 
+
+                    document.getElementById('voiceMsgInput').style.display = selectedFeatures.voiceMsg ? 'block' : 'none'; 
+
+                } 
+
+                if (document.getElementById('fallMsgInput')) { 
+
+                    document.getElementById('fallMsgInput').style.display = selectedFeatures.fallDetection ? 'block' : 'none'; 
+
+                } 
+
+                if (document.getElementById('gpsMsgInput')) { 
+
+                    document.getElementById('gpsMsgInput').style.display = selectedFeatures.gpsTracking ? 'block' : 'none'; 
+
+                } 
+
+                if (document.getElementById('heartRateMsgInput')) { 
+
+                    document.getElementById('heartRateMsgInput').style.display = selectedFeatures.heartRate ? 'block' : 'none'; 
+
+                } 
+
+            } 
+
+ 
+
+            // Add event listeners after DOM is fully loaded 
+
+            if (document.getElementById('saveMessages')) { 
+
+                document.getElementById('saveMessages').addEventListener('click', function() { 
+
+                    const voiceMsgText = document.getElementById('voiceMsgText')?.value || "This is an emergency! Please help!"; 
+
+                    const fallMsg = document.getElementById('fallMsg')?.value || "Fall Detected! Sending help."; 
+
+                    const gpsMsg = document.getElementById('gpsMsg')?.value || "User left the safe zone!"; 
+
+                    const heartRateMsg = document.getElementById('heartRateMsg')?.value || "Heart Rate Alert!"; 
+
+ 
+
+                    const customMessages = { 
+
+                        voiceMsgText: voiceMsgText, 
+
+                        fallMsg: fallMsg, 
+
+                        gpsMsg: gpsMsg, 
+
+                        heartRateMsg: heartRateMsg 
+
+                    }; 
+
+ 
+
+                    localStorage.setItem('customMessages', JSON.stringify(customMessages)); 
+
+                    alert('Custom messages saved!'); 
+
+                }); 
+
+            } 
+
+ 
+
+            if (document.getElementById('startEmergency')) { 
+
+                document.getElementById('startEmergency').addEventListener('click', function() { 
+
+                    showPage('dashboardPage'); 
+
+                    startEmergencyServices(); 
+
+                }); 
+
+            } 
+
+ 
+
+            if (document.getElementById('recordCall')) { 
+
+                document.getElementById('recordCall').addEventListener('click', async function() { 
+
+                    try { 
+
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); 
+
+                        const recorder = new MediaRecorder(stream); 
+
+                        const chunks = []; 
+
+ 
+
+                        recorder.ondataavailable = e => chunks.push(e.data); 
+
+                        recorder.onstop = () => { 
+
+                            const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' }); 
+
+                            recordedCall = URL.createObjectURL(blob); 
+
+                            const callName = 'Emergency Call'; 
+
+                            localStorage.setItem('recordedCallName', callName); 
+
+                            localStorage.setItem('recordedCall', recordedCall); 
+
+                            alert('Fake call recorded and saved!'); 
+
+                        }; 
+
+ 
+
+                        recorder.start(); 
+
+                        alert('Recording started... Will stop after 5 seconds'); 
+
+                        setTimeout(() => { 
+
+                            recorder.stop(); 
+
+                            stream.getTracks().forEach(track => track.stop()); 
+
+                        }, 5000); // Record for 5 seconds 
+
+                    } catch (err) { 
+
+                        console.error('Error recording:', err); 
+
+                        alert('Failed to record fake call. Check console for details.'); 
+
+                    } 
+
+                }); 
+
+            } 
+
+             
+
+            // Initialize: Show login page first 
+
+            showPage('loginPage'); 
+
+        }); 
+
+ 
+
+        function startEmergencyServices() { 
+
+            const selectedFeatures = JSON.parse(localStorage.getItem('selectedFeatures')) || { 
+
+                voiceMsg: false, 
+
+                heartRate: false, 
+
+                fallDetection: false, 
+
+                gpsTracking: false 
+
+            }; 
+
+             
+
+            const customMessages = JSON.parse(localStorage.getItem('customMessages')) || { 
+
+                voiceMsgText: "This is an emergency! Please help!", 
+
+                fallMsg: "Fall Detected! Sending help.", 
+
+                gpsMsg: "User left the safe zone!", 
+
+                heartRateMsg: "Heart Rate Alert!" 
+
+            }; 
+
+ 
+
+            const fallMsg = customMessages.fallMsg; 
+
+            const gpsMsg = customMessages.gpsMsg; 
+
+            const heartRateMsg = customMessages.heartRateMsg; 
+
+            const voiceMsgText = customMessages.voiceMsgText; 
+
+ 
+
+            if (selectedFeatures.gpsTracking) { 
+
+                getLocation(gpsMsg); 
+
+            } 
+
+ 
+
+            document.getElementById('updateLocation').addEventListener('click', function() { 
+
+                getLocation("Location updated!"); 
+
+            }); 
+
+ 
+
+            if (selectedFeatures.heartRate) { 
+
+                startHeartRateMonitoring(heartRateMsg); 
+
+            } 
+
+             
+
+            if (selectedFeatures.fallDetection) { 
+
+                startFallDetection(fallMsg); 
+
+            } 
+
+ 
+
+            if (selectedFeatures.voiceMsg) { 
+
+                let call = localStorage.getItem('recordedCall'); 
+
+                if (call) { 
+
+                    let audio = new Audio(call); 
+
+                    audio.play(); 
+
+                } else { 
+
+                    // Play the customized voice message text as fallback 
+
+                    sendNotification(voiceMsgText); 
+
+                } 
+
+            } 
+
+ 
+
+            document.getElementById('sendSos').addEventListener('click', function() { 
+
+                sendSosAlert(); 
+
+            }); 
+
+ 
+
+            // Home icon click 
+
+            document.getElementById('homeIcon').addEventListener('click', function() { 
+
+                showProfileInfo(); 
+
+                showPage('profileInfoPage'); 
+
+            }); 
+
+        } 
+
+ 
+
+        function sendSosAlert() { 
+
+            const userData = JSON.parse(localStorage.getItem('userData')) || { name: "User" }; 
+
+            const userName = userData.name; 
+
+            const sosMessage = `${userName} needs help! Sending SOS with current location.`; 
+
+            getLocation(sosMessage); 
+
+        } 
+
+ 
+
+        function getLocation(message) { 
+
+            if (navigator.geolocation) { 
+
+                navigator.geolocation.getCurrentPosition( 
+
+                    position => showPosition(position, message),  
+
+                    error => showError(error) 
+
+                ); 
+
+            } else { 
+
+                alert("Geolocation is not supported by this browser."); 
+
+            } 
+
+        } 
+
+ 
+
+        function showPosition(position, message) { 
+
+            const latitude = position.coords.latitude; 
+
+            const longitude = position.coords.longitude; 
+
+            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`); 
+
+            updateLocationDisplay(latitude, longitude); 
+
+            sendNotification(`${message} Location: ${latitude}, ${longitude}`); 
+
+        } 
+
+ 
+
+        function showError(error) { 
+
+            switch(error.code) { 
+
+                case error.PERMISSION_DENIED: 
+
+                    alert("User denied the request for Geolocation."); 
+
+                    break; 
+
+                case error.POSITION_UNAVAILABLE: 
+
+                    alert("Location information is unavailable."); 
+
+                    break; 
+
+                case error.TIMEOUT: 
+
+                    alert("The request to get user location timed out."); 
+
+                    break; 
+
+                case error.UNKNOWN_ERROR: 
+
+                    alert("An unknown error occurred."); 
+
+                    break; 
+
+            } 
+
+        } 
+
+ 
+
+        function startHeartRateMonitoring(message) { 
+
+            setInterval(() => { 
+
+                const heartRate = Math.floor(Math.random() * (120 - 40 + 1)) + 40; 
+
+                console.log(`Heart Rate: ${heartRate} bpm`); 
+
+                updateHeartRate(heartRate); 
+
+                if (heartRate < 50 || heartRate > 100) { 
+
+                    sendNotification(`${message} Heart Rate: ${heartRate} bpm`); 
+
+                } 
+
+            }, 5000); 
+
+        } 
+
+ 
+
+        function startFallDetection(message) { 
+
+            setInterval(() => { 
+
+                const fallDetected = Math.random() < 0.2; 
+
+                if (fallDetected) { 
+
+                    console.log("Fall Detected!"); 
+
+                    updateFallDetection(true); 
+
+                    sendNotification(message); 
+
+                } else { 
+
+                    updateFallDetection(false); 
+
+                } 
+
+            }, 7000); 
+
+        } 
+
+ 
+
+        function sendNotification(message) { 
+
+            if (Notification.permission === 'granted') { 
+
+                const notification = new Notification('Emergency Alert!', { 
+
+                    body: message, 
+
+                    icon: 'https://pplx-res.cloudinary.com/image/upload/v1740309763/user_uploads/wokigscTbVKJBcZ/home-image.jpg' 
+
+                }); 
+
+                addNotification(message); 
+
+            } else if (Notification.permission !== 'denied') { 
+
+                Notification.requestPermission().then(permission => { 
+
+                    if (permission === 'granted') { 
+
+                        const notification = new Notification('Emergency Alert!', { 
+
+                            body: message, 
+
+                            icon: 'https://pplx-res.cloudinary.com/image/upload/v1740309763/user_uploads/wokigscTbVKJBcZ/home-image.jpg' 
+
+                        }); 
+
+                        addNotification(message); 
+
+                    } 
+
+                }); 
+
+            } 
+
+            // Always add to the UI notification list 
+
+            addNotification(message); 
+
+        } 
+
+ 
+
+        function updateLocationDisplay(latitude, longitude) { 
+
+            document.getElementById('latitude').innerText = `Latitude: ${latitude}`; 
+
+            document.getElementById('longitude').innerText = `Longitude: ${longitude}`; 
+
+        } 
+
+ 
+
+        function addNotification(message) { 
+
+            const notificationList = document.getElementById('notificationList'); 
+
+            const newNotification = document.createElement('li'); 
+
+            newNotification.innerText = message; 
+
+            notificationList.appendChild(newNotification); 
+
+        } 
+
+ 
+
+        function updateHeartRate(heartRate) { 
+
+            document.getElementById('heartRateValue').innerText = heartRate; 
+
+        } 
+
+ 
+
+        function updateFallDetection(fallDetected) { 
+
+            document.getElementById('fallDetectedValue').innerText = fallDetected ? 'Yes' : 'No'; 
+
+        } 
+
+ 
+
+        function showProfileInfo() { 
+
+            const userData = JSON.parse(localStorage.getItem('userData')); 
+
+            if (userData) { 
+
+                document.getElementById('profileName').innerText = userData.name; 
+
+                document.getElementById('profilePhone').innerText = userData.phone; 
+
+                document.getElementById('profileAge').innerText = userData.age; 
+
+            } 
+
+        } 
+
+    </script> 
+
+</body> 
+
+</html> 
